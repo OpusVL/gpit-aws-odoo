@@ -1,0 +1,41 @@
+version: "3.2"
+
+services:
+
+  odoo:
+    &odoo
+    image: ${ODOO_IMAGE:-odoo}:${ODOO_IMAGE_VERSION:-latest}
+    volumes:
+    - "${CONTAINER_VOLUME?REQUIRED}/invoicing/odoo/extra-addons:/mnt/extra-addons:rw"
+    - "${CONTAINER_VOLUME?REQUIRED}/invoicing/odoo/:/var/lib/odoo:rw"
+    - "${PWD}/odoo/etc/:/etc/odoo:rw"
+    - "${CONTAINER_VOLUME?REQUIRED}/invoicing/pg_socket:/var/run/postgresql"
+    ports:
+    - "8069:8069"
+    - "8070:8072"
+    environment:
+      USER: "${ODOO_POSTGRES_USER:-odoo}"
+      PASSWORD: "${ODOO_POSTGRES_PASSWORD:-odoo}"
+      HOST: ${DB_HOST:-db}
+      PORT: ${DB_PORT}
+      # Upgrade the database the website is pointing at on /upgrade
+      ODOO_UPGRADE_DB_NAME: "${ODOO_DATABASE:-uat}"
+    command: --max-cron-threads 0 --workers 8 --log-handler=:INFO
+    restart: on-failure
+    logging:
+        driver: 'awslogs'
+        options:
+          awslogs-region: 'eu-west-2'
+          awslogs-group: '/var/log/odoo.log'
+
+  odoo-cron:
+    << : *odoo
+    ports: 
+    - "8072"
+    command: --max-cron-threads 8 --no-xmlrpc --database ${ODOO_DATABASE:-uat}
+    logging:
+        driver: 'awslogs'
+        options:
+          awslogs-region: 'eu-west-2'
+          awslogs-group: '/var/log/odoo-cron.log'
+

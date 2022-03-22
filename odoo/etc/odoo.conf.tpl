@@ -1,0 +1,56 @@
+[options]
+addons_path = /mnt/extra-addons
+data_dir = /var/lib/odoo
+proxy_mode = True
+without_demo = True
+admin_passwd = ${ADMIN_PASS}
+secure_cookie = True
+limit_request = 8192
+limit_time_cpu = ${LIMIT_TIME_CPU}
+limit_time_real = ${LIMIT_TIME_REAL}
+longpolling_port = 8072
+smtp_password = ${SMTP_PASSWORD}
+smtp_port = 587
+smtp_server = send.nhs.net
+smtp_ssl = True
+smtp_user = gpitf.invoicing@nhs.net
+limit_memory_hard = 5368709120
+limit_memory_soft = 4294967296
+
+; dbfilter = ^%h$
+; 
+; auto_reload = True
+; csv_internal_sep = ,
+; db_maxconn = 64
+; db_name = False
+; db_template = template1
+; dbfilter = .*
+; debug_mode = False
+; email_from = False
+; limit_memory_hard = 2684354560
+; limit_memory_soft = 2147483648
+; limit_request = 8192
+; limit_time_cpu = 60
+; limit_time_real = 120
+; list_db = True
+; log_db = False
+; log_handler = [':INFO']
+; log_level = info
+; logfile = None
+; longpolling_port = 8072
+; max_cron_threads = 2
+; osv_memory_age_limit = 1.0
+; osv_memory_count_limit = False
+; smtp_password = False
+; smtp_port = 25
+; smtp_server = mail
+; smtp_ssl = False
+; smtp_user = False
+; workers = 0
+; xmlrpc = True
+; xmlrpc_interface = 
+; xmlrpc_port = 8069
+; xmlrpcs = True
+; xmlrpcs_interface = 
+; xmlrpcs_port = 8071
+

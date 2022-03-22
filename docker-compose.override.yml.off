@@ -1,0 +1,13 @@
+version: "3.2"
+
+services:
+
+  odoo:
+    restart: on-failure
+    logging:
+      driver: 'json-file'
+
+  odoo-cron:
+    logging:
+      driver: 'json-file'
+
